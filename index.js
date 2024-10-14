@@ -36,7 +36,6 @@ async function main() {
     const config = await loadConfig();
     const messages = loadMessages();
 
-    // Validate configuration
     if (!config.token) {
         console.error(chalk.red("[ERROR] No bot token provided in config.yaml!"));
         process.exit(1);
@@ -52,7 +51,6 @@ async function main() {
         process.exit(1);
     }
 
-    // Get delays from configuration
     const tokenDelay = config.token_delay || 5;
     const messageDelay = config.message_delay || 2;
     const restartDelay = config.restart_delay || 10;
@@ -64,7 +62,6 @@ async function main() {
                 const username = await bot.username;
 
                 for (const channel of config.channel_id) {
-                    // Randomly select a message from the loaded messages
                     const customMessage = messages[Math.floor(Math.random() * messages.length)];
                     const response = await bot.sendMessage(channel, customMessage);
 
@@ -72,11 +69,11 @@ async function main() {
                         console.log(chalk.green(`[INFO] [${username}] => Sent to Channel ${channel}: ${customMessage}`));
                     }
 
-                    await new Promise(resolve => setTimeout(resolve, messageDelay * 1000)); // Delay after each message
+                    await new Promise(resolve => setTimeout(resolve, messageDelay * 1000));
                 }
 
                 console.log(chalk.yellow(`[INFO] Waiting for ${tokenDelay} seconds before processing the next token...`));
-                await new Promise(resolve => setTimeout(resolve, tokenDelay * 1000)); // Delay after processing each token
+                await new Promise(resolve => setTimeout(resolve, tokenDelay * 1000));
 
             } catch (error) {
                 console.error(chalk.red(`[CRITICAL ERROR] Skipping token due to error: ${error.name}: ${error.message}`));
@@ -84,7 +81,7 @@ async function main() {
         }
 
         console.log(chalk.yellow(`[INFO] Waiting for ${restartDelay} seconds before restarting...`));
-        await new Promise(resolve => setTimeout(resolve, restartDelay * 1000)); // Delay before restarting
+        await new Promise(resolve => setTimeout(resolve, restartDelay * 1000));
     }
 }
 
