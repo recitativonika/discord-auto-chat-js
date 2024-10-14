@@ -1,0 +1,17 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "A simple Discord bot to send messages from a list",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "yaml": "^1.10.2",
+    "chalk": "^5.0.1"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
